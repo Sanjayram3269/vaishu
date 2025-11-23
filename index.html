@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday, Srivaishnavi ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #ff8fb1, #ff3366, #1b0026);
+      color: #fff;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at bottom, rgba(0,0,0,0.45), transparent 60%);
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      width: 90%;
+      padding: 24px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 28px 24px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.45);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 20px;
+      align-items: center;
+    }
+
+    @media (max-width: 750px) {
+      .card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .heading {
+      font-size: 1.9rem;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .heading span.name {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ffe6f2;
+      text-shadow: 0 0 16px rgba(255, 182, 193, 0.8);
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 8px;
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+      opacity: 0.9;
+    }
+
+    .message {
+      font-size: 0.98rem;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .highlight {
+      font-weight: 700;
+      color: #ffd1e8;
+    }
+
+    .date-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.4);
+      font-size: 0.8rem;
+      opacity: 0.95;
+      margin-bottom: 12px;
+    }
+
+    .heart {
+      font-size: 1rem;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 6px rgba(255,255,255,0.8)); }
+      50% { transform: scale(1.2); filter: drop-shadow(0 0 12px rgba(255, 230, 230, 1)); }
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: none;
+      padding: 9px 16px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff99c8, #ff3366);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(255, 51, 102, 0.6);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #ffe6f7;
+      border: 1px solid rgba(255, 230, 246, 0.8);
+    }
+
+    .btn span.heart-small {
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.35);
+    }
+
+    .btn:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .photo-frame {
+      width: 210px;
+      height: 210px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 3px solid rgba(255,255,255,0.8);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-glow {
+      position: absolute;
+      inset: -15px;
+      background: radial-gradient(circle at 30% 0%, rgba(255,255,255,0.25), transparent 55%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      text-align: center;
+    }
+
+    .signature {
+      margin-top: 6px;
+      font-size: 0.8rem;
+      opacity: 0.8;
+      text-align: center;
+    }
+
+    /* Falling petals / flowers */
+    .petal {
+      position: fixed;
+      top: -10vh;
+      width: 18px;
+      height: 18px;
+      pointer-events: none;
+      background-image: radial-gradient(circle at 30% 30%, #ffe6f2 0, #ff99c8 40%, #ff3366 100%);
+      border-radius: 60% 40% 70% 30%;
+      opacity: 0.85;
+      filter: drop-shadow(0 0 4px rgba(0,0,0,0.25));
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translate3d(0, -10vh, 0) rotateZ(0deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0.95;
+      }
+      100% {
+        transform: translate3d(10vw, 120vh, 0) rotateZ(360deg);
+        opacity: 0;
+      }
+    }
+
+    .hidden-message {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      display: none;
+    }
+
+    .hidden-message.visible {
+      display: block;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+
+  <div class="container">
+    <div class="card">
+      <div class="left">
+        <div class="subtitle">Advance birthday surprise</div>
+        <div class="heading">
+          Happy 19th, <span class="name">Srivaishnavi</span> ❤️
+        </div>
+
+        <div class="date-pill">
+          <span>🎂</span>
+          <span>26 • 11 • 2006 → 26 • 11 • 2025</span>
+          <span class="heart">❤️</span>
+        </div>
+
+        <p class="tagline">
+          To my princess, my love, my wifey, my forever girl. 🥺❤️
+        </p>
+
+        <p class="message">
+          Dear <span class="highlight">babygirl</span>,  
+          every day with you feels like my favourite story – full of inside jokes,
+          late-night talks, jealous cuteness, random fights and soft “I love you” moments.
+          You turned my ordinary days into something I never want to lose.
+        </p>
+
+        <p class="message">
+          On your 19th, I just want you to know this:  
+          <span class="highlight">you’re not just my girlfriend, you’re my home.</span>  
+          My safest place, my comfort person, my whole world in one smile. ❤️
+        </p>
+
+        <div class="buttons">
+          <button class="btn btn-primary" id="showMessageBtn">
+            Tap for a tiny love note <span class="heart-small">❤️</span>
+          </button>
+          <button class="btn btn-outline">
+            Made with love, by your boy 💫
+          </button>
+        </div>
+
+        <p class="hidden-message" id="hiddenMessage">
+          ADVANCEEEEEEEEEEE HHAAAPPPPPYYYYYY BIRTHDAYYYYYYYYYY BABYGIRLLLL!!!  
+          I love you more than words, more than code, more than all the stars.  
+          Today, tomorrow, every version of the future I want… has you in it. 💍❤️
+        </p>
+      </div>
+
+      <div class="right">
+        <div class="photo-frame">
+          <!-- Replace src with her real photo path -->
+         <img src="vaishu.jpg" alt="Srivaishnavi">
+          <div class="photo-glow"></div>
+        </div>
+        <div class="label">My princess. My love. My wifey. ❤️</div>
+        <div class="signature">— From your mad, obsessed, forever boy 🫶</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Falling petals
+    function createPetal() {
+      const petal = document.createElement("div");
+      petal.classList.add("petal");
+
+      const startLeft = Math.random() * 100; // vw
+      const duration = 10 + Math.random() * 8; // seconds
+      const delay = Math.random() * 5; // seconds
+      const size = 14 + Math.random() * 14; // px
+
+      petal.style.left = startLeft + "vw";
+      petal.style.animationDuration = duration + "s";
+      petal.style.animationDelay = delay + "s";
+      petal.style.width = size + "px";
+      petal.style.height = size + "px";
+
+      document.body.appendChild(petal);
+
+      setTimeout(() => {
+        petal.remove();
+      }, (duration + delay) * 1000);
+    }
+
+    // create many petals
+    for (let i = 0; i < 35; i++) {
+      setTimeout(createPetal, i * 350);
+    }
+    setInterval(createPetal, 1200);
+
+    // Button to show hidden message
+    const btn = document.getElementById("showMessageBtn");
+    const hiddenMessage = document.getElementById("hiddenMessage");
+
+    btn.addEventListener("click", () => {
+      hiddenMessage.classList.add("visible");
+    });
+  </script>
+</body>
+</html>
