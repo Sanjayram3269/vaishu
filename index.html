@@ -12,327 +12,533 @@
     }
 
     body {
-      height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      background: radial-gradient(circle at top, #ff8fb1, #ff3366, #1b0026);
-      color: #fff;
-    }
+  height: auto;             /* allow full content height */
+  min-height: 100vh;        /* still covers full screen height initially */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  display: flex;
+  align-items: flex-start;  /* prevent stretching on tall pages */
+  justify-content: center;
+  overflow-x: hidden;       /* block sideways scrolling */
+  overflow-y: auto;         /* allow vertical scrolling */
+  background: radial-gradient(circle at top, #ff8fb1, #ff3366, #1b0026);
+  color: #fff;
+}
+
 
     .overlay {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at bottom, rgba(0,0,0,0.45), transparent 60%);
+      background: radial-gradient(circle at bottom, rgba(0, 0, 0, 0.45), transparent 60%);
       z-index: 0;
     }
 
-    .container {
+    .app {
       position: relative;
       z-index: 2;
-      max-width: 900px;
-      width: 90%;
-      padding: 24px;
+      max-width: 1000px;
+      width: 95%;
+      padding: 20px;
     }
 
     .card {
       background: rgba(255, 255, 255, 0.08);
-      border-radius: 24px;
-      padding: 28px 24px;
-      backdrop-filter: blur(14px);
-      box-shadow: 0 18px 45px rgba(0,0,0,0.45);
+      border-radius: 26px;
+      padding: 26px 22px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
       border: 1px solid rgba(255, 255, 255, 0.18);
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 20px;
-      align-items: center;
     }
 
-    @media (max-width: 750px) {
-      .card {
-        grid-template-columns: 1fr;
+    .screen {
+      display: none;
+      animation: fadeInUp 0.7s ease forwards;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    .heading {
-      font-size: 1.9rem;
-      line-height: 1.1;
-      margin-bottom: 10px;
+    .centered {
+      text-align: center;
     }
 
-    .heading span.name {
-      font-size: 2.2rem;
+    .title {
+      font-size: 2rem;
       font-weight: 800;
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(255, 182, 193, 0.9);
+    }
+
+    .title span {
       color: #ffe6f2;
-      text-shadow: 0 0 16px rgba(255, 182, 193, 0.8);
     }
 
     .subtitle {
-      font-size: 0.95rem;
-      letter-spacing: 0.08em;
+      font-size: 0.9rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       opacity: 0.85;
-      margin-bottom: 8px;
+      margin-bottom: 18px;
     }
 
-    .tagline {
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-      opacity: 0.9;
-    }
-
-    .message {
-      font-size: 0.98rem;
-      line-height: 1.5;
-      margin-bottom: 16px;
-    }
-
-    .highlight {
-      font-weight: 700;
-      color: #ffd1e8;
-    }
-
-    .date-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.4);
-      font-size: 0.8rem;
-      opacity: 0.95;
-      margin-bottom: 12px;
-    }
-
-    .heart {
-      font-size: 1rem;
-      animation: pulse 1.2s infinite;
+    .big-heart {
+      font-size: 3rem;
+      margin: 10px 0 18px;
+      animation: pulse 1.3s ease-in-out infinite;
     }
 
     @keyframes pulse {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 6px rgba(255,255,255,0.8)); }
-      50% { transform: scale(1.2); filter: drop-shadow(0 0 12px rgba(255, 230, 230, 1)); }
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
+      }
+      50% {
+        transform: scale(1.18);
+        filter: drop-shadow(0 0 20px rgba(255, 230, 230, 1));
+      }
     }
 
-    .buttons {
+    .btn-row {
+      margin-top: 20px;
       display: flex;
+      justify-content: center;
+      gap: 12px;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 4px;
     }
 
     .btn {
       border-radius: 999px;
       border: none;
-      padding: 9px 16px;
-      font-size: 0.88rem;
+      padding: 11px 20px;
+      font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease, opacity 0.2s ease;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
     .btn-primary {
       background: linear-gradient(135deg, #ff99c8, #ff3366);
       color: #fff;
-      box-shadow: 0 8px 20px rgba(255, 51, 102, 0.6);
+      box-shadow: 0 12px 26px rgba(255, 51, 102, 0.6);
     }
 
-    .btn-outline {
+    .btn-ghost {
       background: transparent;
       color: #ffe6f7;
       border: 1px solid rgba(255, 230, 246, 0.8);
     }
 
-    .btn span.heart-small {
-      font-size: 1rem;
-    }
-
     .btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 12px 26px rgba(0,0,0,0.35);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
     }
 
     .btn:active {
       transform: translateY(1px) scale(0.98);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+      box-shadow: 0 7px 18px rgba(0, 0, 0, 0.35);
+      opacity: 0.95;
     }
 
-    .right {
-      display: flex;
-      flex-direction: column;
+    .pill {
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
-    }
-
-    .photo-frame {
-      width: 210px;
-      height: 210px;
+      gap: 8px;
+      padding: 6px 12px;
       border-radius: 999px;
-      overflow: hidden;
-      border: 3px solid rgba(255,255,255,0.8);
-      box-shadow: 0 14px 32px rgba(0,0,0,0.5);
-      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      font-size: 0.8rem;
+      opacity: 0.95;
+      margin-bottom: 14px;
     }
 
-    .photo-frame img {
+    .pill span.heart {
+      animation: none;
+    }
+
+    /* Screen 2: Gallery */
+    .screen-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-align: left;
+    }
+
+    .screen-text {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .gallery {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .photo-card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+      transform: translateY(0);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .photo-card img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
       display: block;
+      object-fit: cover;
+      object-position: top;
+      filter: saturate(1.05);
     }
 
-    .photo-glow {
+    .photo-card::after {
+      content: "";
       position: absolute;
-      inset: -15px;
-      background: radial-gradient(circle at 30% 0%, rgba(255,255,255,0.25), transparent 55%);
-      mix-blend-mode: screen;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.12), transparent 60%);
       pointer-events: none;
     }
 
-    .label {
-      font-size: 0.9rem;
-      opacity: 0.9;
-      text-align: center;
+    .photo-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
     }
 
-    .signature {
-      margin-top: 6px;
+    .small-note {
       font-size: 0.8rem;
-      opacity: 0.8;
+      opacity: 0.85;
+    }
+
+    /* Screen 3: Message */
+    .message-box {
+      max-width: 700px;
+      margin: 0 auto;
       text-align: center;
     }
 
-    /* Falling petals / flowers */
+    .message-heading {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .message-lines {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-top: 14px;
+      min-height: 160px;
+      white-space: pre-line;
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1.1em;
+      background: rgba(255,255,255,0.9);
+      margin-left: 3px;
+      animation: blink 0.8s steps(1) infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      50.01%, 100% { opacity: 0; }
+    }
+
+    .final-heart {
+      font-size: 2.5rem;
+      margin-top: 14px;
+      animation: pulse 1.4s infinite;
+    }
+
+    /* Petals (roses) */
     .petal {
       position: fixed;
-      top: -10vh;
-      width: 18px;
-      height: 18px;
+      top: -12vh;
+      width: 20px;
+      height: 26px;
       pointer-events: none;
-      background-image: radial-gradient(circle at 30% 30%, #ffe6f2 0, #ff99c8 40%, #ff3366 100%);
-      border-radius: 60% 40% 70% 30%;
-      opacity: 0.85;
-      filter: drop-shadow(0 0 4px rgba(0,0,0,0.25));
+      background-image:
+        radial-gradient(circle at 30% 30%, #ffe6f2 0, #ff99c8 40%, #ff3366 70%, #aa0033 100%);
+      border-radius: 60% 40% 65% 35%;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.35));
       animation: fall linear infinite;
+    }
+
+    .petal::after {
+      content: "🌹";
+      position: absolute;
+      inset: -6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      opacity: 0.8;
     }
 
     @keyframes fall {
       0% {
-        transform: translate3d(0, -10vh, 0) rotateZ(0deg);
+        transform: translate3d(0, -12vh, 0) rotateZ(0deg);
         opacity: 0;
       }
-      15% {
-        opacity: 0.95;
+      10% {
+        opacity: 1;
       }
       100% {
-        transform: translate3d(10vw, 120vh, 0) rotateZ(360deg);
+        transform: translate3d(12vw, 120vh, 0) rotateZ(360deg);
         opacity: 0;
       }
     }
 
-    .hidden-message {
-      margin-top: 10px;
-      font-size: 0.95rem;
-      line-height: 1.4;
-      display: none;
-    }
-
-    .hidden-message.visible {
-      display: block;
-      animation: fadeIn 0.4s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 <body>
   <div class="overlay"></div>
 
-  <div class="container">
-    <div class="card">
-      <div class="left">
-        <div class="subtitle">Birthday surprise</div>
-        <div class="heading">
-          Happy 19th, <span class="name">Srivaishnavi periya papa</span> ❤️
+  <div class="app">
+    <!-- SCREEN 1: Intro / Gift button -->
+    <div class="card screen active" id="screen1">
+      <div class="centered">
+        <div class="subtitle">Advance birthday surprise</div>
+        <div class="title">
+          Happy 19th, <span>Srivaishnavi</span> ❤️
         </div>
 
-        <div class="date-pill">
+        <div class="pill">
           <span>🎂</span>
           <span>26 • 11 • 2006 → 26 • 11 • 2025</span>
           <span class="heart">❤️</span>
         </div>
 
-        <p class="tagline">
-          To my princess, my love, my wifey, my forever girl. 🥺❤️
+        <div class="big-heart">🌹</div>
+
+        <p style="max-width: 540px; margin: 0 auto; font-size: 0.98rem; opacity: 0.95;">
+          To my princess, my love, my wifey, my forever girl.  
+          This little corner of the internet is just for you.  
+          Ready to see your birthday gift?
         </p>
 
-        <p class="message">
-          Dear <span class="highlight">babygirl</span>,  
-          every day with you feels like my favourite story – full of inside jokes,
-          late-night talks, jealous cuteness, random fights and soft “I love you” moments.
-          You turned my ordinary days into something I never want to lose.
-        </p>
-
-        <p class="message">
-          On your 19th, I just want you to know this:  
-          <span class="highlight">you’re not just my girlfriend, you’re my home.</span>  
-          My safest place, my comfort person, my whole world in one smile. ❤️
-        </p>
-
-        <div class="buttons">
-          <button class="btn btn-primary" id="showMessageBtn">
-            Tap for a tiny love note <span class="heart-small">❤️</span>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="openGiftBtn">
+            Open your surprise 🎁
           </button>
-          <button class="btn btn-outline">
-            Made with love, by your boy 💫
+          <button class="btn btn-ghost">
+            Made with love by your boy 💫
           </button>
         </div>
+      </div>
+    </div>
 
-        <p class="hidden-message" id="hiddenMessage">
-          HHAAAPPPPPYYYYYY BIRTHDAYYYYYYYYYY BABYGIRLLLL!!!  
-          I love you more than words, more than anything and eveyrthing , more than all the stars.  
-          Today, tomorrow, every version of the future I want… has you in it. 💍❤️ I love you a lot thangameee !! 
-          Exams nala panu jeikira okay va? I wanna meet u soon and hug u very badly baby mwahhh!! I miss u a lot ...
-          Indha website romba kasta patu panen nane reply panuva online vandhu nu namburen love you so much papu !!
-        </p>
+    <!-- SCREEN 2: Gallery -->
+    <div class="card screen" id="screen2">
+      <div class="screen-title">Some of my favourite versions of you ❤️</div>
+      <div class="screen-text">
+        Every picture here is one tiny proof of how insanely pretty, pure and priceless my
+        <span style="font-weight:700;">periya papa</span> is.  
+        Scroll with your eyes slowly… I don’t want you to miss a single detail.
       </div>
 
-      <div class="right">
-        <div class="photo-frame">
-          <!-- Replace src with her real photo path -->
-         <img src="her1.jpg" alt="Srivaishnavi">
-          <div class="photo-glow"></div>
+      <div class="gallery">
+        <!-- Replace these photos with your 10 images: photo1.jpg ... photo10.jpg -->
+        <div class="photo-card">
+          <img src="her1.jpg" alt="Srivaishnavi 1" />
         </div>
-        <div class="label">My princess. My love. My wifey. ❤️</div>
-        <div class="signature">— From your mad, obsessed, forever boy 🫶</div>
+        <div class="photo-card">
+          <img src="vaishu.jpg" alt="Srivaishnavi 2" />
+        </div>
+        <div class="photo-card">
+          <img src="vaishu1.jpg" alt="Srivaishnavi 3" />
+        </div>
+        <div class="photo-card">
+          <img src="vaishu2.jpg" alt="Srivaishnavi 4" />
+        </div>
+        <div class="photo-card">
+          <img src="vaishu3.jpg" alt="Srivaishnavi 5" />
+        </div>
+        <div class="photo-card">
+          <img src="vaishu4.jpg" alt="Srivaishnavi 6" />
+        </div>
+        <div class="photo-card">
+          <img src="vaishu5.jpg" alt="Srivaishnavi 7" />
+        </div>
+        <div class="photo-card">
+          <img src="vaishu6.jpg" alt="Srivaishnavi 8" />
+        </div>
+        <div class="photo-card">
+          <img src="vaishu7.jpg" alt="Srivaishnavi 9" />
+        </div>
+        <div class="photo-card">
+          <img src="vaishu8.jpg" alt="Srivaishnavi 10" />
+        </div>
+      </div>
+
+      <div class="small-note">
+        Ps: If you think you look “okay okay” in any of these, just know your boy is aggressively disagreeing. 💗
+      </div>
+
+      <div class="btn-row" style="margin-top: 18px;">
+        <button class="btn btn-primary" id="toMessagesBtn">
+          Next → A small message for you 💌
+        </button>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: Messages -->
+    <div class="card screen" id="screen3">
+      <div class="message-box">
+        <div class="message-heading">
+          A tiny letter from your mad, obsessed boy 🫶
+        </div>
+        <div style="font-size:0.9rem; opacity:0.8; margin-bottom:6px;">
+          Click below and read slowly, line by line.
+        </div>
+
+        <div class="btn-row" style="margin-top:10px; margin-bottom:10px;">
+          <button class="btn btn-primary" id="startMessageBtn">
+            Tap to reveal your message ❤️
+          </button>
+        </div>
+
+        <div class="message-lines" id="messageText"></div>
+        <div class="final-heart" id="finalHeart" style="display:none;">💍❤️</div>
+
+        <div style="margin-top:12px; font-size:0.8rem; opacity:0.8;">
+          — From your boy who loves you more than code, marks, sleep and literally everything else.
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Falling petals
+    // Simple screen switch
+    function showScreen(id) {
+      document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+      const next = document.getElementById(id);
+      if (next) next.classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    document.getElementById("openGiftBtn").addEventListener("click", () => {
+      showScreen("screen2");
+    });
+
+    document.getElementById("toMessagesBtn").addEventListener("click", () => {
+      showScreen("screen3");
+    });
+
+    // Typewriter message
+    const messageLines = [
+      "HHAAAPPPPPYYYYYY BIRTHDAYYYYYYYYYY BABYGIRLLLL!!! 🥺❤️",
+      "You have no idea how much light you put into my life just by existing.",
+      "You’re not just my girlfriend… you’re my home. My safest place. My happy place.",
+      "I love you more than words, more than anything and everything, more than all the stars.",
+      "Exams nala disturb panala nu neneikuraen… but onnu dhaan, whatever happens, I am always, always on your side.",
+      "I want to meet you soon, hug you very badly and just stay like that for a long time. 🤍",
+      "Indha website romba kashta pattu panen… just to see that one small smile on your face.",
+      "Naan daily reply panren, online varren, ellame unakaga dhaan. You’re my periya papa, thangame. 💫",
+      "Innum romba naal… college, life, struggles, achievements… I want to see everything with you in it.",
+      "So today and every day after this — I love you, I choose you, I’m proud of you. Forever and ever. 💍"
+    ];
+
+    let typing = false;
+
+    function typeMessage() {
+      if (typing) return;
+      typing = true;
+
+      const container = document.getElementById("messageText");
+      const finalHeart = document.getElementById("finalHeart");
+      container.innerHTML = "";
+      finalHeart.style.display = "none";
+
+      let lineIndex = 0;
+      let charIndex = 0;
+      let currentLine = "";
+      const cursor = document.createElement("span");
+      cursor.className = "typing-cursor";
+      container.appendChild(cursor);
+
+      function typeNextChar() {
+        if (lineIndex >= messageLines.length) {
+          cursor.remove();
+          finalHeart.style.display = "block";
+          typing = false;
+          return;
+        }
+
+        if (charIndex === 0) {
+          currentLine = messageLines[lineIndex] + "\n";
+        }
+
+        const textWithoutCursor = container.textContent.replace(/\u00A0/g, " ");
+        const newText = textWithoutCursor + currentLine[charIndex];
+        container.textContent = newText;
+        container.appendChild(cursor);
+
+        charIndex++;
+
+        if (charIndex < currentLine.length) {
+          setTimeout(typeNextChar, 35);
+        } else {
+          lineIndex++;
+          charIndex = 0;
+          setTimeout(typeNextChar, 240);
+        }
+      }
+
+      typeNextChar();
+    }
+
+    document.getElementById("startMessageBtn").addEventListener("click", typeMessage);
+
+    // Falling rose petals
     function createPetal() {
       const petal = document.createElement("div");
       petal.classList.add("petal");
 
-      const startLeft = Math.random() * 100; // vw
-      const duration = 10 + Math.random() * 8; // seconds
-      const delay = Math.random() * 5; // seconds
-      const size = 14 + Math.random() * 14; // px
+      const startLeft = Math.random() * 100;
+      const duration = 11 + Math.random() * 10;
+      const delay = Math.random() * 5;
+      const size = 14 + Math.random() * 16;
 
       petal.style.left = startLeft + "vw";
       petal.style.animationDuration = duration + "s";
       petal.style.animationDelay = delay + "s";
       petal.style.width = size + "px";
-      petal.style.height = size + "px";
+      petal.style.height = size * 1.3 + "px";
 
       document.body.appendChild(petal);
 
@@ -341,22 +547,10 @@
       }, (duration + delay) * 1000);
     }
 
-    // create many petals
-    for (let i = 0; i < 35; i++) {
+    for (let i = 0; i < 40; i++) {
       setTimeout(createPetal, i * 350);
     }
     setInterval(createPetal, 1200);
-
-    // Button to show hidden message
-    const btn = document.getElementById("showMessageBtn");
-    const hiddenMessage = document.getElementById("hiddenMessage");
-
-    btn.addEventListener("click", () => {
-      hiddenMessage.classList.add("visible");
-    });
   </script>
 </body>
 </html>
-
-
-
